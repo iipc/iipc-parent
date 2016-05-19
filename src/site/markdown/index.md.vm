@@ -1,0 +1,38 @@
+# Parent pom for IIPC projects
+
+This project consists of a POM that contains settings that are likely to be useful to any IIPC project that is building
+and releasing code with Maven 3. By using this project as a parent, a project gets these settings.
+
+Some of the settings are parameterized by using the property **github.name** which is assumed to be the project name on
+GitHub the project can be reached by (https://github.com/iipc/${github.name}). Most project will want to override some of these settings.
+
+The following is a list of the items configured in this POM:
+
+#### Top-level project properties:
+
+  * **license**: Apache License, version 2.0.
+  * **organization**: The International Internet Preservation Consortium
+  * **url**: https://github.com/iipc/${github_name}. You should override this.
+  * **issueManagement**: https://github.com/iipc/${github.name}/issues
+  * **scm**:
+    * **connection**: scm:git:git@github.com:iipc/${github.name}.git
+    * **developerConnection**: scm:git:git@github.com:iipc/${github.name}.git
+    * **url**: https://github.com/iipc/${github.name}
+  * **repositories**: The pom adds the Sonatype snapshot repository (https://oss.sonatype.org/content/repositories/snapshots/)
+  * **distributionManagement**: The POM sets up for releases to Sonatype at https://oss.sonatype.org/service/local/staging/deploy/maven2/
+	     and snapshots to https://oss.sonatype.org/content/repositories/snapshots/. The site is set to: http://iipc.github.io/${github.name}/${project.version}
+
+#### Plugin Management:
+The plugin management section specifies versions of a list of plugins. See the [Plugin Management report](./plugin-management.html) for the complete list with versions.
+
+  * The compiler plugin is set to default to Java 7 and UTF-8 source.
+  * The release plugin is set to enable the **iipc-release** profile for **all** executions of the release plugin and to disable \<useReleaseProfiles\>.
+
+#### Making releases of projects using the IIPC Parent POM
+This pom sets up some reasonable defaults for creating releases. Among other things it includes the following plugins:
+
+  * maven-source-plugin: configured to build and attach a source jar.
+  * maven-javadoc-plugin: configured to build and attach a javadoc jar.
+  * maven-gpg-plugin: configured to sign everything.
+
+For more information see the [documentation](https://github.com/iipc/${github_name}/wiki/Release-Procedure) for making releases.

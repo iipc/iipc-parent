@@ -1,0 +1,14 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.netpreserve</groupId>
+        <artifactId>iipc-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.netpreserve</groupId>
+    <artifactId>build-tools</artifactId>
+    <name>Build Tools</name>
+
+    <description>Collection of resources needed for various parts of the build.</description>
+</project>

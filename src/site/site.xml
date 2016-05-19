@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2016 The International Internet Preservation Consortium.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<project>
+    <!--  <bannerLeft>
+      <name>${project.name}</name>
+      <src>images/OpenWayback-banner100.png</src>
+      <href>/</href>
+    </bannerLeft>-->
+    <bannerRight>
+        <name>International Internet Preservation Consortium</name>
+        <src>iipc_logo.png</src>
+        <href>http://netpreserve.org/</href>
+    </bannerRight>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.5</version>
+    </skin>
+    <body>
+        <links>
+            <item name="GitHub" href="https://github.com/iipc"/>
+            <item name="Home" href="index.html"/>
+        </links>
+
+        <menu name="Overview" inherit="top">
+            <item name="About" ref="index"/>
+            <item name="Issue Management" ref="issue-tracking"/>
+            <item name="License" ref="license"/>
+            <item name="Source Code Management" ref="source-repository"/>
+            <item name="Dependency Information" ref="dependency-info"/>
+            <item name="Plugin Management" ref="plugin-management"/>
+        </menu>
+
+        <menu ref="modules" inherit="top"/>
+        <menu ref="parent" inherit="top"/>
+    </body>
+</project>
