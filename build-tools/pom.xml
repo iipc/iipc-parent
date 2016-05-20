@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.netpreserve</groupId>
         <artifactId>iipc-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <groupId>org.netpreserve</groupId>
