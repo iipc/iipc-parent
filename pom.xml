@@ -57,8 +57,7 @@
         <connection>scm:git:git@github.com:iipc/${github.name}.git</connection>
         <developerConnection>scm:git:git@github.com:iipc/${github.name}.git</developerConnection>
         <url>https://github.com/iipc/${github.name}</url>
-      <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <distributionManagement>
         <repository>
@@ -216,19 +215,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>verify</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
             </plugin>
             <plugin>
@@ -290,31 +276,6 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${maven.checkstyle.plugin.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.puppycrawl.tools</groupId>
-                            <artifactId>checkstyle</artifactId>
-                            <version>${checkstyle.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.netpreserve</groupId>
-                            <artifactId>build-tools</artifactId>
-                            <version>1.1-SNAPSHOT</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <configLocation>iipc/checkstyle.xml</configLocation>
-                        <headerLocation>iipc/license.txt</headerLocation>
-                        <consoleOutput>false</consoleOutput>
-                        <failsOnError>false</failsOnError>
-                        <failOnViolation>false</failOnViolation>
-                        <logViolationsToConsole>true</logViolationsToConsole>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>${maven.gpg.plugin.version}</version>
                 </plugin>
@@ -345,14 +306,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven.checkstyle.plugin.version}</version>
-                <configuration>
-                    <logViolationsToConsole>false</logViolationsToConsole>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>${maven.project.info.reports.plugin.version}</version>
                 <configuration>
@@ -365,6 +318,7 @@
     </reporting>
 
     <profiles>
+        <!-- Profile activated by the release plugin -->
         <profile>
             <id>iipc-release</id>
             <build>
@@ -409,7 +363,79 @@
                 </plugins>
             </build>
         </profile>
+
         <profile>
+            <!-- A default profile activated for all subprojects.
+                 It can not be activated for building the parent pom and build-tools
+                 due to dependencies on build-tools which is not built yet. -->
+            <id>default</id>
+            <activation>
+                <file>
+                    <missing>parent.txt</missing>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>verify</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-checkstyle-plugin</artifactId>
+                            <version>${maven.checkstyle.plugin.version}</version>
+                            <dependencies>
+                                <dependency>
+                                    <groupId>com.puppycrawl.tools</groupId>
+                                    <artifactId>checkstyle</artifactId>
+                                    <version>${checkstyle.version}</version>
+                                </dependency>
+                                <dependency>
+                                    <groupId>org.netpreserve</groupId>
+                                    <artifactId>build-tools</artifactId>
+                                    <version>1.1-SNAPSHOT</version>
+                                </dependency>
+                            </dependencies>
+                            <configuration>
+                                <configLocation>iipc/checkstyle.xml</configLocation>
+                                <headerLocation>iipc/license.txt</headerLocation>
+                                <consoleOutput>false</consoleOutput>
+                                <failsOnError>false</failsOnError>
+                                <failOnViolation>false</failOnViolation>
+                                <logViolationsToConsole>true</logViolationsToConsole>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>${maven.checkstyle.plugin.version}</version>
+                        <configuration>
+                            <logViolationsToConsole>false</logViolationsToConsole>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+
+        <profile>
+            <!-- Profile for building the parent pom itself -->
             <id>build-parent</id>
             <activation>
                 <file>
