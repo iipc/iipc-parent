@@ -57,6 +57,7 @@
         <connection>scm:git:git@github.com:iipc/${github.name}.git</connection>
         <developerConnection>scm:git:git@github.com:iipc/${github.name}.git</developerConnection>
         <url>https://github.com/iipc/${github.name}</url>
+        <tag>HEAD</tag>
     </scm>
 
     <distributionManagement>
